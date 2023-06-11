@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp_24" />
+    <dimen name="dp_328" />
+    <dimen name="dp_40" />
+    <dimen name="dp_32" />
+    <dimen name="sp_16" />
+    <dimen name="dp_16" />
+    <dimen name="dp_120" />
+    <dimen name="dp_80" />
+    <dimen name="dp_8" />
+    <dimen name="dp_4" />
+    <dimen name="dp_2" />
+    <dimen name="sp_20" />
+</resources>

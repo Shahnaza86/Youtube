@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Youtube</string>
+    <string name="try_again" />
+    <string name="no_internet_connection" />
+    <string name="playlist" />
+    <string name="playlist_name" />
+    <string name="number_of_videos" />
+    <string name="back">Back</string>
+    <string name="playlist_">Playlist</string>
+    <string name="tryagain">Try again</string>
+</resources>
