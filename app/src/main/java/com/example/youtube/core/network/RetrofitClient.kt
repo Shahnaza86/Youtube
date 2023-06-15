@@ -1,6 +1,6 @@
 package com.example.youtube.core.network
 
-import com.example.youtube.BuildConfig.BASE_URL
+import androidx.viewbinding.BuildConfig
 import com.example.youtube.data.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,8 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
-
-    private var test: String = ""
 
     companion object {
         fun create(): ApiService {
@@ -25,10 +23,7 @@ class RetrofitClient {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
-                .client(okHttpClient)
-                .build()
+                .baseUrl(BuildConfig.B)
 
             return retrofit.create(ApiService::class.java)
         }

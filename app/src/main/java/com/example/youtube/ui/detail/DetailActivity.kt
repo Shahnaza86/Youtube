@@ -1,12 +1,19 @@
 package com.example.youtube.ui.detail
 
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.youtube.core.network.result.Status
 import com.example.youtube.core.ui.base.BaseActivity
+import com.example.youtube.data.remote.model.Playlist
 import com.example.youtube.databinding.ActivityDetailBinding
+import com.example.youtube.di.utils.NoConnection
+import com.example.youtube.ui.playlist.PlaylistActivity.Companion.DESCRIPTION
+import com.example.youtube.ui.playlist.PlaylistActivity.Companion.KEY_ID
+import com.example.youtube.ui.playlist.PlaylistActivity.Companion.TITLE
 import com.example.youtube.ui.playlist.adapter.DetailAdapter
 
-class DetailActivity() : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
+class DetailActivity() : BaseActivity<ActivityDetailBinding,DetailViewModel>() {
 
     private lateinit var adapter: DetailAdapter
 
@@ -34,7 +41,7 @@ class DetailActivity() : BaseActivity<ActivityDetailBinding, DetailViewModel>() 
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.recyclerView.adapter = adapter
-                    adapter.addList(it.data?.items as List<Playlists.Item>)
+                    adapter.addList(it.data?.items as List<Playlist.Item>)
                     binding.tvDescription.text = getIntentDesc
                     binding.tvTitle.text = getIntentTitle
                     binding.progressBar.isVisible = false
@@ -51,7 +58,7 @@ class DetailActivity() : BaseActivity<ActivityDetailBinding, DetailViewModel>() 
     }
     override fun checkInternet() {
         super.checkInternet()
-        ConnectionLiveData(application).observe(this) {
+        NoConnection(application).observe(this) {
             if (it) {
                 binding.internetConnection.visibility = View.VISIBLE
                 binding.noConnection.visibility = View.GONE
@@ -61,5 +68,10 @@ class DetailActivity() : BaseActivity<ActivityDetailBinding, DetailViewModel>() 
                 setupLiveData()
             }
         }
+    }
+    companion object {
+        const val KEY_ID = "key_id"
+        const val DESCRIPTION = "DESCRIPTION"
+        const val TITLE = "TITLE"
     }
 }

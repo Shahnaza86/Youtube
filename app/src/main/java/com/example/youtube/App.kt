@@ -5,7 +5,8 @@ import com.example.youtube.repository.Repository
 
 class App : Application() {
 
-    companion object {
-        val repository = Repository()
+
+    val repository: Repository by lazy {
+        Repository()
     }
 }

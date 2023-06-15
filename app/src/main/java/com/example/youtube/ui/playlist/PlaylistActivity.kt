@@ -1,10 +1,16 @@
 package com.example.youtube.ui.playlist
 
+import android.content.Intent
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.example.youtube.core.network.result.Status
 import com.example.youtube.core.ui.base.BaseActivity
 import com.example.youtube.data.remote.model.Playlist
 import com.example.youtube.databinding.ActivityPlaylistBinding
+import com.example.youtube.di.utils.NoConnection
+import com.example.youtube.ui.detail.DetailActivity
 import com.example.youtube.ui.playlist.adapter.PlaylistAdapter
 
 
@@ -18,6 +24,7 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
     override fun setUI() {
         super.setUI()
         adapter = PlaylistAdapter(this::onClick)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun setupLiveData() {
@@ -26,7 +33,7 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
             binding.progressBar.isVisible = it
 
         }
-        viewModel.getPlayList().observe(this) {
+        viewModel.getPlaylists().observe(this) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.recyclerView.adapter = adapter
@@ -45,11 +52,11 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
         }
     }
 
-    override fun inflateViewBinding(): ActivityMainBinding {
-        return ActivityMainBinding.inflate(layoutInflater)
+    override fun inflateViewBinding(): PlaylistMainBinding {
+        return PlaylistMainBinding.inflate(layoutInflater)
     }
 
-    private fun onClick(item: Playlists.Item) {
+    private fun onClick(item: Playlist.Item) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DESCRIPTION, item.snippet?.description)
         intent.putExtra(TITLE, item.snippet?.title)
@@ -59,7 +66,7 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
 
     override fun checkInternet() {
         super.checkInternet()
-        ConnectionLiveData(application).observe(this) {
+        NoConnection(application).observe(this) {
             if (it) {
                 binding.internetConnection.visibility = View.VISIBLE
                 binding.noConnection.visibility = View.GONE

@@ -15,7 +15,7 @@ interface ApiService {
         @Query("part")part:String,
         @Query("channelId")channelId:String,
         @Query("maxResults") maxResult: Int=30
-    ): Call<Playlist>
+    ): Response<Playlist>
 
     @GET("playlistItems")
     suspend fun getPlaylistItems(
