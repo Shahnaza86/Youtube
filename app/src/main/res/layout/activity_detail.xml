@@ -6,6 +6,17 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
+    <FrameLayout
+        android:id="@+id/no_connection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/no_internet_connection_include"
+            layout="@layout/no_connection_layout" />
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
@@ -37,6 +48,7 @@
     </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/internet_connection"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/background_light"
@@ -81,7 +93,6 @@
                         android:textColor="@color/black"
                         android:textSize="24sp"
                         android:textStyle="normal" />
-
                     <TextView
                         android:id="@+id/description"
                         android:layout_width="wrap_content"
@@ -132,6 +143,14 @@
             android:src="@drawable/play"
             app:layout_anchor="@id/main.appbar"
             app:layout_anchorGravity="bottom|right|end" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/red"
+            android:visibility="gone" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

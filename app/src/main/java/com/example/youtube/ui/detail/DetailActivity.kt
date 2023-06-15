@@ -2,16 +2,14 @@ package com.example.youtube.ui.detail
 
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.youtube.core.network.result.Status
 import com.example.youtube.core.ui.base.BaseActivity
 import com.example.youtube.data.remote.model.Playlist
 import com.example.youtube.databinding.ActivityDetailBinding
 import com.example.youtube.di.utils.NoConnection
-import com.example.youtube.ui.playlist.PlaylistActivity.Companion.DESCRIPTION
-import com.example.youtube.ui.playlist.PlaylistActivity.Companion.KEY_ID
-import com.example.youtube.ui.playlist.PlaylistActivity.Companion.TITLE
-import com.example.youtube.ui.playlist.adapter.DetailAdapter
+import com.example.youtube.ui.adapter.DetailAdapter
 
 class DetailActivity() : BaseActivity<ActivityDetailBinding,DetailViewModel>() {
 
@@ -28,7 +26,7 @@ class DetailActivity() : BaseActivity<ActivityDetailBinding,DetailViewModel>() {
     override fun setUI() {
         super.setUI()
         adapter = DetailAdapter()
-        binding.recyclerView.adapter = adapter
+        binding.rvPlaylist.adapter = adapter
     }
 
     override fun setupLiveData() {
@@ -40,10 +38,10 @@ class DetailActivity() : BaseActivity<ActivityDetailBinding,DetailViewModel>() {
         viewModel.getPlaylistItems(getIntentId!!).observe(this) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    binding.recyclerView.adapter = adapter
+                    binding.rvPlaylist.adapter = adapter
                     adapter.addList(it.data?.items as List<Playlist.Item>)
-                    binding.tvDescription.text = getIntentDesc
-                    binding.tvTitle.text = getIntentTitle
+                    binding.description.text = getIntentDesc
+                    binding.title.text = getIntentTitle
                     binding.progressBar.isVisible = false
                 }
                 Status.ERROR -> {

@@ -11,7 +11,7 @@ import com.example.youtube.data.remote.model.Playlist
 import com.example.youtube.databinding.ActivityPlaylistBinding
 import com.example.youtube.di.utils.NoConnection
 import com.example.youtube.ui.detail.DetailActivity
-import com.example.youtube.ui.playlist.adapter.PlaylistAdapter
+import com.example.youtube.ui.adapter.PlaylistAdapter
 
 
 class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel>() {
@@ -29,7 +29,7 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
 
     override fun setupLiveData() {
         super.setupLiveData()
-        viewModel.loading.observe(this){
+        viewModel.loading.observe(this) {
             binding.progressBar.isVisible = it
 
         }
@@ -40,11 +40,11 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
                     adapter.addList(it.data?.items as List<Playlist.Item>)
                     viewModel.loading.postValue(false)
                 }
-                Status.ERROR ->{
+                Status.ERROR -> {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     viewModel.loading.postValue(false)
                 }
-                Status.LOADING ->{
+                Status.LOADING -> {
                     viewModel.loading.postValue(true)
 
                 }
@@ -52,8 +52,8 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
         }
     }
 
-    override fun inflateViewBinding(): PlaylistMainBinding {
-        return PlaylistMainBinding.inflate(layoutInflater)
+    override fun inflateViewBinding(): ActivityPlaylistBinding {
+        return ActivityPlaylistBinding.inflate(layoutInflater)
     }
 
     private fun onClick(item: Playlist.Item) {

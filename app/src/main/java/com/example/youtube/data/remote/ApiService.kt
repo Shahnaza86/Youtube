@@ -10,7 +10,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("playlists")
-    fun getPlaylists(
+     suspend fun getPlaylists(
         @Query("key") apiKey: String,
         @Query("part")part:String,
         @Query("channelId")channelId:String,

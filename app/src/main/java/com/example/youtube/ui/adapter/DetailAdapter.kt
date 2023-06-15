@@ -1,16 +1,15 @@
-package com.example.youtube.ui.playlist.adapter
+package com.example.youtube.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtube.data.remote.model.DetailItem
 import com.example.youtube.data.remote.model.Playlist
 import com.example.youtube.databinding.ItemDetailBinding
 import com.example.youtube.di.utils.loadImage
 
-class DetailAdapter():  Adapter<DetailAdapter.DetailViewHolder>() {
+class DetailAdapter():  RecyclerView.Adapter<DetailAdapter.DetailViewHolder>() {
 
     private var list = ArrayList<DetailItem.Item>()
     @SuppressLint("NotifyDataSetChanged")
@@ -19,25 +18,15 @@ class DetailAdapter():  Adapter<DetailAdapter.DetailViewHolder>() {
         notifyDataSetChanged()
     }
 
-    private fun notifyDataSetChanged() {
-       return
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder {
+        return DetailViewHolder(ItemDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder {
-        return DetailViewHolder(
-            ItemDetailBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
+    override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
         holder.bind(list[position])
     }
-
-    override fun getItemCount() = list.size
 
     inner class DetailViewHolder(private val binding: ItemDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -6,7 +6,7 @@ import com.example.youtube.data.remote.model.Playlist
 import retrofit2.Response
 
 abstract class BaseDataSource {
-  protected suspend fun <T> getResult(call: () -> Response<T>): Resource<T> {
+  protected suspend fun <T> getResult(call:suspend () -> Response<T>): Resource<T> {
    try {
     val response = call()
     if (response.isSuccessful) {
